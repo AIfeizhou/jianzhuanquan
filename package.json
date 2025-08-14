@@ -1,7 +1,7 @@
 {
   "name": "construction-safety-platform",
-  "version": "1.0.0",
-  "description": "基于AI视觉识别技术的建筑安全与质量检测平台",
+  "version": "1.0.1",
+  "description": "基于AI视觉识别技术的建筑安全与质量检测平台 - 正式版本1.0.1",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

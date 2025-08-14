@@ -119,7 +119,7 @@ const App: React.FC = () => {
       <Footer className="app-footer">
         <div className="footer-content">
           <div className="footer-info">
-            <p>建筑安全识别平台 &copy; 2024 - 基于AI视觉识别技术的智能安全检测</p>
+            <p>建筑安全识别平台 v1.0.1 &copy; 2024 - 基于AI视觉识别技术的智能安全检测</p>
             <p className="footer-description">
               支持多种图片格式 • 实时AI分析 • 专业安全评估 • 详细整改建议
             </p>

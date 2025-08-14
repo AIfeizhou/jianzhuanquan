@@ -141,14 +141,29 @@ def generate_pdf_report(data, output_path):
             from reportlab.pdfbase import pdfmetrics
             from reportlab.pdfbase.ttfonts import TTFont
             
-            # 尝试注册中文字体
-            font_path = "C:/Windows/Fonts/simsun.ttc"  # Windows宋体
-            if os.path.exists(font_path):
-                pdfmetrics.registerFont(TTFont('SimSun', font_path))
-                chinese_font = 'SimSun'
-            else:
-                chinese_font = 'Helvetica'
-        except:
+            # 尝试多个中文字体路径
+            font_paths = [
+                "C:/Windows/Fonts/simsun.ttc",  # Windows宋体
+                "C:/Windows/Fonts/msyh.ttc",    # 微软雅黑
+                "C:/Windows/Fonts/simhei.ttf",  # 黑体
+                "C:/Windows/Fonts/simsun.ttf"   # 宋体TTF
+            ]
+            
+            chinese_font = 'Helvetica'  # 默认字体
+            
+            for font_path in font_paths:
+                if os.path.exists(font_path):
+                    try:
+                        pdfmetrics.registerFont(TTFont('ChineseFont', font_path))
+                        chinese_font = 'ChineseFont'
+                        print(f"成功注册字体: {font_path}")
+                        break
+                    except Exception as e:
+                        print(f"字体注册失败 {font_path}: {e}")
+                        continue
+                        
+        except Exception as e:
+            print(f"字体处理失败: {e}")
             chinese_font = 'Helvetica'
         
         # 自定义样式

@@ -79,7 +79,7 @@ app.get('/health', (req, res) => {
 app.get('/', (req, res) => {
     res.json({
         message: '🏗️ 建筑安全识别平台 API',
-        version: '1.0.0',
+        version: '1.0.1',
         status: 'running',
         endpoints: {
             health: '/health',
