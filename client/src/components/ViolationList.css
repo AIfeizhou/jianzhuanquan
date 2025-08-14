@@ -1,0 +1,455 @@
+/* 违规列表主容器 */
+.violation-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 列表头部 */
+.list-header {
+  padding: var(--spacing-base);
+  border-bottom: 1px solid var(--border-secondary);
+  background: rgba(0, 0, 0, 0.02);
+  text-align: center;
+}
+
+.list-title {
+  display: block;
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.list-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* 空状态 */
+.no-violations {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: var(--spacing-xl);
+}
+
+.no-violations-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-base);
+}
+
+.no-violations-icon {
+  font-size: 48px;
+  color: var(--success-color);
+}
+
+.no-violations-text {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.no-violations-desc {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+}
+
+/* 违规列表 */
+.violations {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-sm);
+}
+
+.violations .ant-list-item {
+  border: none;
+  padding: 0;
+  margin-bottom: var(--spacing-base);
+}
+
+/* 违规项 */
+.violation-item {
+  border-radius: var(--border-radius-lg);
+  border: 2px solid transparent;
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.violation-item:hover {
+  box-shadow: var(--shadow-base);
+  transform: translateY(-1px);
+}
+
+.violation-item.selected {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.violation-item.severe {
+  border-left: 4px solid var(--error-color);
+}
+
+.violation-item.normal {
+  border-left: 4px solid #722ed1;
+}
+
+/* 违规内容 */
+.violation-content {
+  padding: var(--spacing-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* 违规头部 */
+.violation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.violation-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+.violation-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.violation-tag {
+  font-weight: 500;
+}
+
+.risk-tag {
+  font-size: var(--font-size-xs);
+}
+
+.locate-button {
+  color: var(--text-secondary);
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.locate-button:hover {
+  color: var(--primary-color);
+  background: rgba(24, 144, 255, 0.1);
+}
+
+/* 违规类别 */
+.violation-category {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+}
+
+/* 违规描述 */
+.violation-description {
+  margin: 0;
+}
+
+.description-text {
+  margin: 0 !important;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-size: var(--font-size-sm);
+}
+
+/* 条例部分 */
+.violation-regulations {
+  background: rgba(24, 144, 255, 0.05);
+  border: 1px solid rgba(24, 144, 255, 0.1);
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-sm);
+}
+
+.section-title {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+}
+
+.regulations-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.regulation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+}
+
+.regulation-content {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* 建议部分 */
+.violation-suggestions {
+  background: rgba(250, 173, 20, 0.05);
+  border: 1px solid rgba(250, 173, 20, 0.1);
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-sm);
+}
+
+.suggestions-list {
+  margin: 0;
+  padding-left: var(--spacing-base);
+}
+
+.suggestion-item {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--spacing-xs);
+}
+
+.suggestion-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 违规底部 */
+.violation-footer {
+  border-top: 1px solid var(--border-secondary);
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.footer-info {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.coordinate-info,
+.severity-info {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+}
+
+/* 列表底部 */
+.list-footer {
+  border-top: 1px solid var(--border-secondary);
+  padding: var(--spacing-base);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.violation-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.stat-number {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-item.severe .stat-number {
+  color: var(--error-color);
+}
+
+.stat-item.normal .stat-number {
+  color: #722ed1;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 30px;
+  background: var(--border-primary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .violation-header {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    align-items: flex-start;
+  }
+  
+  .violation-meta {
+    width: 100%;
+  }
+  
+  .footer-info {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    align-items: flex-start;
+  }
+  
+  .violation-stats {
+    gap: var(--spacing-base);
+  }
+  
+  .stat-item {
+    gap: 2px;
+  }
+  
+  .stat-number {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .violations {
+    padding: var(--spacing-xs);
+  }
+  
+  .violation-content {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-xs);
+  }
+  
+  .violation-regulations,
+  .violation-suggestions {
+    padding: var(--spacing-xs);
+  }
+  
+  .regulation-item {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .no-violations {
+    min-height: 200px;
+    padding: var(--spacing-base);
+  }
+  
+  .no-violations-icon {
+    font-size: 36px;
+  }
+}
+
+/* 暗色主题 */
+@media (prefers-color-scheme: dark) {
+  .list-header,
+  .list-footer {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .violation-item {
+    background: rgba(255, 255, 255, 0.02);
+  }
+  
+  .violation-item.selected {
+    background: rgba(24, 144, 255, 0.1);
+  }
+  
+  .violation-regulations {
+    background: rgba(24, 144, 255, 0.1);
+    border-color: rgba(24, 144, 255, 0.2);
+  }
+  
+  .violation-suggestions {
+    background: rgba(250, 173, 20, 0.1);
+    border-color: rgba(250, 173, 20, 0.2);
+  }
+  
+  .violation-footer {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  .violation-item {
+    border: 2px solid #cccccc;
+  }
+  
+  .violation-item.selected {
+    border-color: #000000;
+  }
+  
+  .violation-regulations,
+  .violation-suggestions {
+    border: 1px solid #000000;
+  }
+}
+
+/* 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+  .violation-item {
+    transition: none;
+  }
+  
+  .violation-item:hover,
+  .violation-item.selected {
+    transform: none;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .violation-list {
+    break-inside: avoid;
+  }
+  
+  .locate-button {
+    display: none;
+  }
+  
+  .violation-item {
+    border: 1px solid #cccccc;
+    box-shadow: none;
+    break-inside: avoid;
+    margin-bottom: var(--spacing-base);
+  }
+  
+  .violation-item.severe {
+    border-left: 4px solid #000000;
+  }
+  
+  .violation-item.normal {
+    border-left: 4px solid #666666;
+  }
+  
+  .list-header,
+  .list-footer {
+    background: #f5f5f5;
+    border: 1px solid #cccccc;
+  }
+}

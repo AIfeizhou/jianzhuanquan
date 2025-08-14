@@ -1,0 +1,21 @@
+{
+  "summary": {
+    "total_score": 60,
+    "severe_count": 1,
+    "normal_count": 0,
+    "overall_assessment": "????",
+    "priority_actions": [
+      "????"
+    ]
+  },
+  "violations": [
+    {
+      "type": "????",
+      "category": "??",
+      "description": "????",
+      "regulations": [],
+      "suggestions": [],
+      "risk_level": "???"
+    }
+  ]
+}

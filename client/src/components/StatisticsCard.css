@@ -1,0 +1,453 @@
+/* 统计卡片主容器 */
+.statistics-card {
+  width: 100%;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* 统计卡片 */
+.stat-card {
+  height: 100%;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-base);
+  transition: all var(--transition-base);
+  overflow: hidden;
+  position: relative;
+}
+
+.stat-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+}
+
+/* 评分卡片 */
+.score-card::before {
+  background: linear-gradient(90deg, #52c41a, #73d13d);
+}
+
+.score-card .stat-content {
+  background: linear-gradient(135deg, #f6ffed 0%, #f0f9ff 100%);
+}
+
+/* 等级卡片 */
+.level-card::before {
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+}
+
+.level-card .stat-content {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f7ff 100%);
+}
+
+/* 严重违规卡片 */
+.severe-card::before {
+  background: linear-gradient(90deg, #ff4d4f, #ff7875);
+}
+
+.severe-card .stat-content {
+  background: linear-gradient(135deg, #fff2f0 0%, #ffece8 100%);
+}
+
+/* 一般违规卡片 */
+.normal-card::before {
+  background: linear-gradient(90deg, #722ed1, #9254de);
+}
+
+.normal-card .stat-content {
+  background: linear-gradient(135deg, #f9f0ff 0%, #efdbff 100%);
+}
+
+/* 统计内容 */
+.stat-content {
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  min-height: 120px;
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.score-icon {
+  background: linear-gradient(135deg, #52c41a, #73d13d);
+}
+
+.level-icon {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+}
+
+.severe-icon {
+  background: linear-gradient(135deg, #ff4d4f, #ff7875);
+}
+
+.normal-icon {
+  background: linear-gradient(135deg, #722ed1, #9254de);
+}
+
+.stat-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.stat-number-large {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.severe-number {
+  color: #ff4d4f;
+}
+
+.normal-number {
+  color: #722ed1;
+}
+
+.stat-label {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stat-sublabel {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* 进度条 */
+.score-progress {
+  margin: 0 var(--spacing-lg) var(--spacing-base);
+}
+
+/* 警告标识 */
+.stat-warning {
+  background: rgba(255, 77, 79, 0.1);
+  color: #ff4d4f;
+  padding: var(--spacing-xs) var(--spacing-base);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border-top: 1px solid rgba(255, 77, 79, 0.2);
+}
+
+/* 详细统计 */
+.detailed-stats {
+  margin-top: var(--spacing-lg);
+}
+
+.assessment-card {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-base);
+}
+
+.assessment-header {
+  padding: var(--spacing-lg) var(--spacing-lg) 0;
+  border-bottom: 1px solid var(--border-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.assessment-title {
+  margin: 0 !important;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.assessment-content {
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.assessment-text {
+  text-align: center;
+  padding: var(--spacing-base);
+  background: rgba(24, 144, 255, 0.05);
+  border-radius: var(--border-radius-base);
+  border: 1px solid rgba(24, 144, 255, 0.1);
+}
+
+.assessment-description {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* 统计网格 */
+.statistics-grid {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-secondary);
+}
+
+.statistics-grid .ant-statistic-title {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.statistics-grid .ant-statistic-content {
+  font-weight: 700;
+}
+
+/* 安全建议 */
+.safety-recommendations {
+  background: rgba(250, 173, 20, 0.05);
+  border: 1px solid rgba(250, 173, 20, 0.2);
+  border-radius: var(--border-radius-base);
+  padding: var(--spacing-base);
+}
+
+.recommendations-title {
+  margin: 0 0 var(--spacing-base) 0 !important;
+  color: var(--warning-color);
+  font-size: var(--font-size-base);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.recommendations-content {
+  margin-left: var(--spacing-base);
+}
+
+.recommendations-list {
+  width: 100%;
+}
+
+.recommendation-item {
+  display: block;
+  line-height: 1.6;
+  font-size: var(--font-size-sm);
+}
+
+.recommendation-item.severe {
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
+.recommendation-item.normal {
+  color: #722ed1;
+  font-weight: 500;
+}
+
+.recommendation-item.general {
+  color: var(--text-secondary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .stat-content {
+    padding: var(--spacing-base);
+    min-height: 100px;
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+  
+  .stat-number-large {
+    font-size: 32px;
+  }
+  
+  .stat-number {
+    font-size: 24px;
+  }
+  
+  .assessment-content {
+    padding: 0 var(--spacing-base) var(--spacing-base);
+  }
+  
+  .statistics-grid {
+    padding: var(--spacing-base);
+  }
+  
+  .recommendations-content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-content {
+    padding: var(--spacing-sm);
+    min-height: 80px;
+  }
+  
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .stat-number-large {
+    font-size: 28px;
+  }
+  
+  .stat-number {
+    font-size: 20px;
+  }
+  
+  .stat-label {
+    font-size: var(--font-size-sm);
+  }
+  
+  .stat-sublabel {
+    font-size: var(--font-size-xs);
+  }
+  
+  .assessment-header {
+    padding: var(--spacing-base) var(--spacing-base) 0;
+  }
+  
+  .assessment-title {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* 暗色主题 */
+@media (prefers-color-scheme: dark) {
+  .stat-card {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .score-card .stat-content {
+    background: rgba(82, 196, 26, 0.1);
+  }
+  
+  .level-card .stat-content {
+    background: rgba(24, 144, 255, 0.1);
+  }
+  
+  .severe-card .stat-content {
+    background: rgba(255, 77, 79, 0.1);
+  }
+  
+  .normal-card .stat-content {
+    background: rgba(114, 46, 209, 0.1);
+  }
+  
+  .assessment-card {
+    background: rgba(255, 255, 255, 0.02);
+  }
+  
+  .assessment-text {
+    background: rgba(24, 144, 255, 0.15);
+    border-color: rgba(24, 144, 255, 0.3);
+  }
+  
+  .statistics-grid {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .safety-recommendations {
+    background: rgba(250, 173, 20, 0.15);
+    border-color: rgba(250, 173, 20, 0.3);
+  }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  .stat-card {
+    border: 2px solid #000000;
+  }
+  
+  .stat-icon {
+    border: 2px solid #ffffff;
+  }
+  
+  .assessment-text,
+  .statistics-grid,
+  .safety-recommendations {
+    border: 2px solid #000000;
+  }
+}
+
+/* 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+  .stat-card {
+    transition: none;
+  }
+  
+  .stat-card:hover {
+    transform: none;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .statistics-card {
+    break-inside: avoid;
+  }
+  
+  .stat-card {
+    background: white;
+    border: 1px solid #cccccc;
+    box-shadow: none;
+  }
+  
+  .stat-card::before {
+    background: #cccccc;
+  }
+  
+  .score-card .stat-content,
+  .level-card .stat-content,
+  .severe-card .stat-content,
+  .normal-card .stat-content {
+    background: #f5f5f5;
+  }
+  
+  .stat-icon {
+    background: #cccccc !important;
+    color: #000000 !important;
+  }
+  
+  .assessment-card {
+    background: white;
+    border: 1px solid #cccccc;
+  }
+  
+  .assessment-text,
+  .statistics-grid,
+  .safety-recommendations {
+    background: #f9f9f9;
+    border: 1px solid #cccccc;
+  }
+}

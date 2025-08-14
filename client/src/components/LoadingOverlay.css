@@ -1,0 +1,232 @@
+/* 加载遮罩层 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 加载内容 */
+.loading-content {
+  background: white;
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-xl);
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  max-width: 400px;
+  width: 90%;
+  animation: slideUp 0.4s ease-out 0.1s both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 加载动画 */
+.loading-animation {
+  margin-bottom: var(--spacing-lg);
+}
+
+.loading-animation .anticon {
+  color: var(--primary-color);
+}
+
+/* 加载文本 */
+.loading-text {
+  margin-bottom: var(--spacing-lg);
+}
+
+.loading-message {
+  display: block;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.loading-description {
+  display: block;
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* 进度条 */
+.loading-progress {
+  margin-top: var(--spacing-lg);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-quaternary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-sm);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+  border-radius: 2px;
+  animation: progressMove 2s ease-in-out infinite;
+  width: 40%;
+}
+
+@keyframes progressMove {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(250%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.progress-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .loading-content {
+    padding: var(--spacing-xl) var(--spacing-lg);
+    max-width: 350px;
+  }
+  
+  .loading-animation .anticon {
+    font-size: 40px !important;
+  }
+  
+  .loading-message {
+    font-size: var(--font-size-base);
+  }
+  
+  .loading-description {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-content {
+    padding: var(--spacing-lg);
+    margin: var(--spacing-base);
+  }
+  
+  .loading-animation .anticon {
+    font-size: 36px !important;
+  }
+  
+  .loading-message {
+    font-size: var(--font-size-sm);
+  }
+  
+  .loading-description {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* 暗色主题 */
+@media (prefers-color-scheme: dark) {
+  .loading-overlay {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .loading-content {
+    background: #1f1f1f;
+    color: white;
+  }
+  
+  .loading-message {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .loading-description {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .progress-text {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  .loading-overlay {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .loading-content {
+    border: 2px solid #000000;
+  }
+  
+  .progress-bar {
+    background: #cccccc;
+    border: 1px solid #000000;
+  }
+  
+  .progress-fill {
+    background: #000000;
+  }
+}
+
+/* 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+  .loading-overlay {
+    animation: none;
+  }
+  
+  .loading-content {
+    animation: none;
+  }
+  
+  .progress-fill {
+    animation: none;
+    width: 60%;
+  }
+  
+  .loading-animation .anticon {
+    animation: none !important;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .loading-overlay {
+    display: none !important;
+  }
+}
