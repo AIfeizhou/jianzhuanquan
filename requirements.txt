@@ -1,29 +1,9 @@
-# 环境变量管理
+# 基础依赖 - 确保Vercel部署成功
 python-dotenv>=1.0.0
-
-# HTTP请求库
 requests>=2.31.0
-
-# 图像处理
 Pillow>=10.0.0
-
-# 数据处理
 numpy>=1.24.0
 pandas>=2.0.0
-
-# Word文档生成
 python-docx>=0.8.11
-
-# PDF生成
 reportlab>=4.0.0
-
-# Excel导出
 openpyxl>=3.1.0
-
-# 开发工具（可选）
-# pytest>=7.4.0
-# black>=23.0.0
-# flake8>=6.0.0
-
-# 注意：volcengine-ark 包在Vercel上无法安装
-# 如果需要AI功能，请使用环境变量配置API密钥
