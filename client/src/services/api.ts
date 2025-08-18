@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosProgressEvent } from 'axios';
+import axios from 'axios';
 import { 
   UploadResponse, 
   AnalysisResponse, 
@@ -8,8 +8,10 @@ import {
 
 // 创建axios实例
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || '/api',
-  timeout: 60000, // 60秒超时
+  baseURL: process.env.NODE_ENV === 'production' 
+    ? 'https://jianzhuanquan-api.vercel.app' 
+    : 'http://localhost:3000',
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -18,50 +20,23 @@ const api = axios.create({
 // 请求拦截器
 api.interceptors.request.use(
   (config) => {
-    // 添加请求时间戳
-    config.metadata = { startTime: Date.now() };
-    
-    // 可以在这里添加认证token等
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
-    
-    console.log(`🚀 API请求: ${config.method?.toUpperCase()} ${config.url}`);
+    console.log('发送请求:', config.method?.toUpperCase(), config.url);
     return config;
   },
   (error) => {
-    console.error('❌ 请求配置错误:', error);
+    console.error('请求错误:', error);
     return Promise.reject(error);
   }
 );
 
 // 响应拦截器
 api.interceptors.response.use(
-  (response: AxiosResponse) => {
-    // 计算请求耗时
-    const duration = Date.now() - (response.config.metadata?.startTime || 0);
-    console.log(`✅ API响应: ${response.config.method?.toUpperCase()} ${response.config.url} (${duration}ms)`);
-    
+  (response) => {
+    console.log('收到响应:', response.status, response.config.url);
     return response;
   },
   (error) => {
-    const duration = Date.now() - (error.config?.metadata?.startTime || 0);
-    console.error(`❌ API错误: ${error.config?.method?.toUpperCase()} ${error.config?.url} (${duration}ms)`, error);
-    
-    // 处理不同类型的错误
-    if (error.code === 'ECONNABORTED') {
-      error.message = '请求超时，请检查网络连接';
-    } else if (error.response?.status === 413) {
-      error.message = '文件太大，请选择小于20MB的图片';
-    } else if (error.response?.status === 429) {
-      error.message = '请求过于频繁，请稍后再试';
-    } else if (error.response?.status >= 500) {
-      error.message = '服务器错误，请稍后重试';
-    } else if (!error.response) {
-      error.message = '网络连接失败，请检查网络设置';
-    }
-    
+    console.error('响应错误:', error.response?.status, error.message);
     return Promise.reject(error);
   }
 );
@@ -83,7 +58,7 @@ declare module 'axios' {
  */
 export const uploadImage = async (
   formData: FormData,
-  onProgress?: (progressEvent: AxiosProgressEvent) => void
+  onProgress?: (progressEvent: any) => void
 ): Promise<UploadResponse> => {
   try {
     const response = await api.post('/upload/single', formData, {
