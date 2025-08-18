@@ -3,11 +3,18 @@ const cors = require('cors');
 
 const app = express();
 
-// 基本中间件 - 延迟初始化
+// 修复CORS配置 - 确保预检请求正确处理
 app.use(cors({
     origin: process.env.CORS_ORIGIN || 'https://jianzhuanquan.vercel.app',
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    preflightContinue: false,
+    optionsSuccessStatus: 200
 }));
+
+// 处理OPTIONS预检请求
+app.options('*', cors());
 
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
