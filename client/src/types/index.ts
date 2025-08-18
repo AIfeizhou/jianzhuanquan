@@ -113,17 +113,6 @@ export interface UploadSectionProps {
 }
 
 // 组件Props类型
-export interface UploadSectionProps {
-  uploadedFile: UploadedFile | null;
-  analysisData: AnalysisData | null;
-  isAnalyzing: boolean;
-  onFileUploaded: (file: UploadedFile) => void;
-  onAnalysisStart: () => void;
-  onAnalysisComplete: (data: AnalysisData) => void;
-  onAnalysisError: (error: string) => void;
-  onReAnalyze: () => void;
-}
-
 export interface AnalysisResultProps {
   data: AnalysisData;
   onReAnalyze: () => void;
