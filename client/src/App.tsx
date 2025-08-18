@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, message, BackTop } from 'antd';
+import { Layout, message, FloatButton } from 'antd';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import Header from './components/Header';
 import UploadSection from './components/UploadSection';
 import AnalysisResult from './components/AnalysisResult';
 import LoadingOverlay from './components/LoadingOverlay';
+import SimpleErrorBoundary from './components/SimpleErrorBoundary';
 import { AnalysisData, UploadedFile } from './types';
 import './App.css';
 
@@ -27,9 +28,20 @@ const App: React.FC = () => {
 
   // 处理文件上传成功
   const handleFileUploaded = (file: UploadedFile) => {
-    setUploadedFile(file);
-    setAnalysisData(null); // 清除之前的分析结果
-    message.success('图片上传成功，可以开始分析了！');
+    try {
+      // 验证文件数据
+      if (!file || !file.url || !file.originalName) {
+        message.error('文件数据无效，请重新上传');
+        return;
+      }
+      
+      setUploadedFile(file);
+      setAnalysisData(null); // 清除之前的分析结果
+      message.success('图片上传成功，可以开始分析了！');
+    } catch (error) {
+      console.error('处理文件上传失败:', error);
+      message.error('处理文件上传时出现错误');
+    }
   };
 
   // 处理分析完成
@@ -83,67 +95,68 @@ const App: React.FC = () => {
   };
 
   return (
-    <Layout className="app-layout">
-      {/* 页面头部 */}
-      <Header 
-        hasData={!!(uploadedFile || analysisData)}
-        onClear={handleClear}
-      />
-      
-      {/* 主要内容区域 */}
-      <Content className="app-content">
-        <div className="content-container">
-          {/* 上传区域 */}
-          <UploadSection
-            uploadedFile={uploadedFile}
-            analysisData={analysisData}
-            isAnalyzing={isAnalyzing}
-            onFileUploaded={handleFileUploaded}
-            onAnalysisStart={handleAnalysisStart}
-            onAnalysisComplete={handleAnalysisComplete}
-            onAnalysisError={handleAnalysisError}
-            onReAnalyze={handleReAnalyze}
-          />
-          
-          {/* 分析结果区域 */}
-          {analysisData && (
-            <AnalysisResult
-              data={analysisData}
+    <SimpleErrorBoundary>
+      <Layout className="app-layout">
+        {/* 页面头部 */}
+        <Header 
+          hasData={!!(uploadedFile || analysisData)}
+          onClear={handleClear}
+        />
+        
+        {/* 主要内容区域 */}
+        <Content className="app-content">
+          <div className="content-container">
+            {/* 上传区域 */}
+            <UploadSection
+              uploadedFile={uploadedFile}
+              analysisData={analysisData}
+              isAnalyzing={isAnalyzing}
+              onFileUploaded={handleFileUploaded}
+              onAnalysisStart={handleAnalysisStart}
+              onAnalysisComplete={handleAnalysisComplete}
+              onAnalysisError={handleAnalysisError}
               onReAnalyze={handleReAnalyze}
             />
-          )}
-        </div>
-      </Content>
-      
-      {/* 页面底部 */}
-      <Footer className="app-footer">
-        <div className="footer-content">
-          <div className="footer-info">
-            <p>建筑安全识别平台 v1.0.1 &copy; 2024 - 基于AI视觉识别技术的智能安全检测</p>
-            <p className="footer-description">
-              支持多种图片格式 • 实时AI分析 • 专业安全评估 • 详细整改建议
-            </p>
-          </div>
-          <div className="footer-stats">
-            {analysisHistory.length > 0 && (
-              <span className="analysis-count">
-                已完成 {analysisHistory.length} 次安全分析
-              </span>
+            
+            {/* 分析结果区域 */}
+            {analysisData && (
+              <AnalysisResult
+                data={analysisData}
+                onReAnalyze={handleReAnalyze}
+              />
             )}
           </div>
-        </div>
-      </Footer>
-      
-      {/* 加载遮罩 */}
-      <LoadingOverlay visible={isAnalyzing} />
-      
-      {/* 回到顶部按钮 */}
-      <BackTop>
-        <div className="back-top-button">
-          <ArrowUpOutlined />
-        </div>
-      </BackTop>
-    </Layout>
+        </Content>
+        
+        {/* 页面底部 */}
+        <Footer className="app-footer">
+          <div className="footer-content">
+            <div className="footer-info">
+              <p>建筑安全识别平台 v1.0.1 &copy; 2024 - 基于AI视觉识别技术的智能安全检测</p>
+              <p className="footer-description">
+                支持多种图片格式 • 实时AI分析 • 专业安全评估 • 详细整改建议
+              </p>
+            </div>
+            <div className="footer-stats">
+              {analysisHistory.length > 0 && (
+                <span className="analysis-count">
+                  已完成 {analysisHistory.length} 次安全分析
+                </span>
+              )}
+            </div>
+          </div>
+        </Footer>
+        
+        {/* 加载遮罩 */}
+        <LoadingOverlay visible={isAnalyzing} />
+        
+        {/* 回到顶部按钮 */}
+        <FloatButton.BackTop
+          className="back-top-button"
+          icon={<ArrowUpOutlined />}
+        />
+      </Layout>
+    </SimpleErrorBoundary>
   );
 };
 

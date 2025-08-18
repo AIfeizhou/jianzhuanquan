@@ -9,7 +9,7 @@ import {
 // 创建axios实例
 const api = axios.create({
   baseURL: process.env.NODE_ENV === 'production' 
-    ? '/api' 
+    ? '' 
     : 'http://localhost:3000',
   timeout: 30000,
   headers: {
@@ -61,9 +61,9 @@ export const uploadImage = async (
   onProgress?: (progressEvent: any) => void
 ): Promise<UploadResponse> => {
   try {
-    const response = await api.post('/upload/single', formData, {
+    const response = await api.post('/api/upload/single', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        // 移除 Content-Type，让浏览器自动设置正确的 boundary
       },
       onUploadProgress: onProgress,
       timeout: 120000, // 2分钟超时，适用于大文件
@@ -72,6 +72,10 @@ export const uploadImage = async (
     return response.data;
   } catch (error: any) {
     console.error('图片上传失败:', error);
+    if (error.response) {
+      console.error('响应状态:', error.response.status);
+      console.error('响应数据:', error.response.data);
+    }
     throw error;
   }
 };
@@ -87,7 +91,7 @@ export const uploadBase64Image = async (
   filename?: string
 ): Promise<UploadResponse> => {
   try {
-    const response = await api.post('/upload/base64', {
+    const response = await api.post('/api/upload/base64', {
       imageData,
       filename,
     });
@@ -109,7 +113,7 @@ export const analyzeImage = async (params: {
   imagePath?: string;
 }): Promise<AnalysisResponse> => {
   try {
-    const response = await api.post('/analyze', params, {
+    const response = await api.post('/api/analyze', params, {
       timeout: 90000, // 90秒超时，AI分析可能较慢
     });
     
@@ -129,7 +133,7 @@ export const batchAnalyzeImages = async (
   images: Array<{ url?: string; path?: string }>
 ): Promise<BatchAnalysisResponse> => {
   try {
-    const response = await api.post('/analyze/batch', { images }, {
+    const response = await api.post('/api/analyze/batch', { images }, {
       timeout: 300000, // 5分钟超时，批量分析需要更长时间
     });
     
@@ -151,7 +155,7 @@ export const getAnalysisHistory = async (
   limit: number = 10
 ): Promise<ApiResponse> => {
   try {
-    const response = await api.get('/analyze/history', {
+    const response = await api.get('/api/analyze/history', {
       params: { page, limit },
     });
     
@@ -168,7 +172,7 @@ export const getAnalysisHistory = async (
  */
 export const healthCheck = async (): Promise<ApiResponse> => {
   try {
-    const response = await api.get('/health');
+    const response = await api.get('/api/health');
     return response.data;
   } catch (error: any) {
     console.error('健康检查失败:', error);
@@ -187,7 +191,7 @@ export const downloadReport = async (
   format: 'pdf' | 'excel' | 'word' = 'pdf'
 ): Promise<Blob> => {
   try {
-    const response = await api.get(`/report/${analysisId}`, {
+    const response = await api.get(`/api/report/${analysisId}`, {
       params: { format },
       responseType: 'blob',
     });

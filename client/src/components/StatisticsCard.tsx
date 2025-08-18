@@ -38,7 +38,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({ summary, totalViolation
       <Row gutter={[24, 24]}>
         {/* 总体安全评分 */}
         <Col xs={24} sm={12} lg={6}>
-          <Card className="stat-card score-card" bordered={false}>
+          <Card className="stat-card score-card" variant="borderless">
             <div className="stat-content">
               <div className="stat-icon score-icon">
                 <SafetyOutlined />
@@ -61,7 +61,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({ summary, totalViolation
 
         {/* 安全等级 */}
         <Col xs={24} sm={12} lg={6}>
-          <Card className="stat-card level-card" bordered={false}>
+          <Card className="stat-card level-card" variant="borderless">
             <div className="stat-content">
               <div className="stat-icon level-icon" style={{ color: safetyInfo.color }}>
                 <SafetyIcon />
@@ -79,7 +79,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({ summary, totalViolation
 
         {/* 严重违规 */}
         <Col xs={24} sm={12} lg={6}>
-          <Card className="stat-card severe-card" bordered={false}>
+          <Card className="stat-card severe-card" variant="borderless">
             <div className="stat-content">
               <div className="stat-icon severe-icon">
                 <ExclamationCircleOutlined />
@@ -100,7 +100,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({ summary, totalViolation
 
         {/* 一般违规 */}
         <Col xs={24} sm={12} lg={6}>
-          <Card className="stat-card normal-card" bordered={false}>
+          <Card className="stat-card normal-card" variant="borderless">
             <div className="stat-content">
               <div className="stat-icon normal-icon">
                 <WarningOutlined />
@@ -118,7 +118,7 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({ summary, totalViolation
       {/* 详细统计 */}
       <Row gutter={[24, 24]} className="detailed-stats">
         <Col xs={24}>
-          <Card className="assessment-card" bordered={false}>
+          <Card className="assessment-card" variant="borderless">
             <div className="assessment-header">
               <Title level={4} className="assessment-title">
                 <SafetyOutlined /> 综合评估报告

@@ -144,7 +144,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({
 
   // 预览图片
   const handlePreview = useCallback(() => {
-    if (uploadedFile) {
+    if (uploadedFile?.url) {
       setPreviewImage(uploadedFile.url);
       setPreviewVisible(true);
     }
@@ -162,7 +162,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({
 
   return (
     <div className="upload-section">
-      <Card className="upload-card" bordered={false}>
+      <Card className="upload-card" variant="borderless">
         <div className="upload-header">
           <Title level={2} className="upload-title">
             <FileImageOutlined className="title-icon" />
@@ -209,10 +209,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({
                 <Progress 
                   percent={uploadProgress} 
                   status="active"
-                  strokeColor={{
-                    '0%': '#108ee9',
-                    '100%': '#87d068',
-                  }}
+                  strokeColor="#1890ff"
                 />
                 <Text className="progress-text">正在上传图片...</Text>
               </div>
@@ -240,8 +237,8 @@ const UploadSection: React.FC<UploadSectionProps> = ({
             <div className="file-preview">
               <div className="preview-image">
                 <img 
-                  src={uploadedFile.url} 
-                  alt={uploadedFile.originalName}
+                  src={uploadedFile?.url || ''} 
+                  alt={uploadedFile?.originalName || '上传的图片'}
                   className="uploaded-image"
                 />
                 <div className="preview-overlay">
@@ -258,21 +255,21 @@ const UploadSection: React.FC<UploadSectionProps> = ({
               
               <div className="file-info">
                 <Title level={4} className="file-name">
-                  {uploadedFile.originalName}
+                  {uploadedFile?.originalName || '未知文件'}
                 </Title>
                 <div className="file-details">
                   <Space direction="vertical" size="small">
                     <Text>
-                      <strong>尺寸:</strong> {uploadedFile.imageInfo.width} × {uploadedFile.imageInfo.height}
+                      <strong>尺寸:</strong> {uploadedFile?.imageInfo?.width || 0} × {uploadedFile?.imageInfo?.height || 0}
                     </Text>
                     <Text>
-                      <strong>大小:</strong> {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                      <strong>大小:</strong> {((uploadedFile?.size || 0) / 1024 / 1024).toFixed(2)} MB
                     </Text>
                     <Text>
-                      <strong>格式:</strong> {uploadedFile.imageInfo.format?.toUpperCase()}
+                      <strong>格式:</strong> {uploadedFile?.imageInfo?.format?.toUpperCase() || '未知'}
                     </Text>
                     <Text>
-                      <strong>上传时间:</strong> {new Date(uploadedFile.uploadTime).toLocaleString()}
+                      <strong>上传时间:</strong> {uploadedFile?.uploadTime ? new Date(uploadedFile.uploadTime).toLocaleString() : '未知'}
                     </Text>
                   </Space>
                 </div>

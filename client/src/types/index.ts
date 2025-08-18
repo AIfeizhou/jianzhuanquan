@@ -98,10 +98,18 @@ export interface AnnotationConfig {
   normalColor: string;
   lineWidth: number;
   fontSize: number;
-  fontFamily: string;
-  showLabels: boolean;
-  labelBackground: string;
-  labelTextColor: string;
+}
+
+// UploadSection 组件属性
+export interface UploadSectionProps {
+  uploadedFile: UploadedFile | null;
+  analysisData: AnalysisData | null;
+  isAnalyzing: boolean;
+  onFileUploaded: (file: UploadedFile) => void;
+  onAnalysisStart: () => void;
+  onAnalysisComplete: (data: AnalysisData) => void;
+  onAnalysisError: (error: string) => void;
+  onReAnalyze: () => void;
 }
 
 // 组件Props类型

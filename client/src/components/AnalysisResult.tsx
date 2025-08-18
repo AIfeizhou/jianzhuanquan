@@ -219,7 +219,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ data, onReAnalyze }) =>
 
   return (
     <div className="analysis-result">
-      <Card className="result-card" bordered={false}>
+      <Card className="result-card" variant="borderless">
         {/* 结果头部 */}
         <div className="result-header">
           <div className="header-info">
@@ -318,7 +318,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ data, onReAnalyze }) =>
                 <Card 
                   title="违规标注图"
                   className="annotation-card"
-                  bordered={false}
+                  variant="borderless"
                 >
                   <ImageAnnotation
                     imageUrl={imageUrl}
@@ -333,7 +333,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ data, onReAnalyze }) =>
                 <Card 
                   title="违规详情"
                   className="violation-card"
-                  bordered={false}
+                  variant="borderless"
                 >
                   <ViolationList
                     violations={violations}
@@ -360,7 +360,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ data, onReAnalyze }) =>
               <Card 
                 title="整体安全评估"
                 className="assessment-card"
-                bordered={false}
+                variant="borderless"
               >
                 <div className="assessment-content">
                   <div className="assessment-score">
@@ -392,7 +392,7 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ data, onReAnalyze }) =>
               <Card 
                 title="违规行为详情"
                 className="violations-detail-card"
-                bordered={false}
+                variant="borderless"
               >
                 {violations.length === 0 ? (
                   <div className="no-violations">

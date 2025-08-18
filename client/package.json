@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "建筑安全识别平台前端应用 - 正式版本1.0.1",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@types/fabric": "^5.3.0",
@@ -29,6 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "vercel-build": "npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

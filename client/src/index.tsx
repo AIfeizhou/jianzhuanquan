@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, App as AntdApp } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -10,7 +10,7 @@ import './index.css';
 // 配置dayjs为中文
 dayjs.locale('zh-cn');
 
-// 自定义主题配置
+// 自定义主题配置 - 简化以避免冲突
 const theme = {
   token: {
     colorPrimary: '#1890ff',
@@ -21,30 +21,17 @@ const theme = {
     borderRadius: 8,
     wireframe: false,
     fontSize: 14,
-    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   components: {
     Button: {
       borderRadius: 8,
       controlHeight: 40,
-      fontSize: 14,
-      fontWeight: 500,
     },
     Input: {
       borderRadius: 8,
       controlHeight: 40,
     },
     Card: {
-      borderRadius: 12,
-      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-    },
-    Upload: {
-      borderRadius: 8,
-    },
-    Modal: {
-      borderRadius: 12,
-    },
-    Drawer: {
       borderRadius: 12,
     },
   },
@@ -61,7 +48,9 @@ root.render(
       theme={theme}
       componentSize="large"
     >
-      <App />
+      <AntdApp>
+        <App />
+      </AntdApp>
     </ConfigProvider>
   </React.StrictMode>
 );
