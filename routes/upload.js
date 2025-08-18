@@ -110,8 +110,17 @@ async function processImage(filePath) {
 
 // 单文件上传接口
 router.post('/single', upload.single('image'), async (req, res) => {
+    console.log('收到上传请求:', {
+        method: req.method,
+        url: req.url,
+        headers: req.headers,
+        body: req.body,
+        file: req.file
+    });
+    
     try {
         if (!req.file) {
+            console.log('没有文件被上传');
             return res.status(400).json({
                 success: false,
                 message: '请选择要上传的图片文件'
@@ -152,7 +161,11 @@ router.post('/single', upload.single('image'), async (req, res) => {
         res.status(400).json({
             success: false,
             message: error.message || '图片上传处理失败',
-            error: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            error: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+            details: {
+                errorType: error.constructor.name,
+                errorCode: error.code || 'UNKNOWN_ERROR'
+            }
         });
     }
 });
