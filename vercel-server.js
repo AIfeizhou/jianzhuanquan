@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
-const morgan = require('cors');
+const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 const fs = require('fs');
@@ -71,8 +71,8 @@ app.get('/health', (req, res) => {
     });
 });
 
-// 根路径
-app.get('/', (req, res) => {
+// API状态页面
+app.get('/api/status', (req, res) => {
     res.json({
         message: '🏗️ 建筑安全识别平台 API',
         version: '1.0.1',
@@ -93,14 +93,6 @@ app.use((error, req, res, next) => {
         success: false,
         message: '服务器内部错误',
         error: process.env.NODE_ENV === 'development' ? error.message : '请联系管理员'
-    });
-});
-
-// 404处理
-app.use('*', (req, res) => {
-    res.status(404).json({
-        success: false,
-        message: '接口不存在'
     });
 });
 
