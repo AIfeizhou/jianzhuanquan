@@ -64,9 +64,9 @@ app.use('/api/', limiter);
 
 app.use('/uploads', express.static(uploadDir));
 
-// 使用上层 routes
-app.use('/api/analyze', require('../routes/analyze'));
-app.use('/api/upload', require('../routes/upload'));
+// 使用 api/routes 下的路由
+app.use('/api/analyze', require('./routes/analyze'));
+app.use('/api/upload', require('./routes/upload'));
 
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', ts: new Date().toISOString(), env: process.env.NODE_ENV || 'production' });
