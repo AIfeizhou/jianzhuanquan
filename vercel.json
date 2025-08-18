@@ -11,8 +11,5 @@
       "src": "/(.*)",
       "dest": "/vercel-minimal.js"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
