@@ -3,18 +3,49 @@ const cors = require('cors');
 
 const app = express();
 
-// 修复CORS配置 - 确保预检请求正确处理
-app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'https://jianzhuanquan.vercel.app',
+// 更兼容的CORS配置
+const corsOptions = {
+    origin: function (origin, callback) {
+        // 允许所有来源，或者特定的前端域名
+        const allowedOrigins = [
+            'https://jianzhuanquan.vercel.app',
+            'http://localhost:3001',
+            'http://localhost:3000'
+        ];
+        
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: [
+        'Origin', 
+        'X-Requested-With', 
+        'Content-Type', 
+        'Accept', 
+        'Authorization',
+        'Cache-Control',
+        'Pragma'
+    ],
+    exposedHeaders: ['Content-Length', 'X-Requested-With'],
     preflightContinue: false,
-    optionsSuccessStatus: 200
-}));
+    optionsSuccessStatus: 204
+};
 
-// 处理OPTIONS预检请求
-app.options('*', cors());
+// 应用CORS中间件
+app.use(cors(corsOptions));
+
+// 手动处理预检请求
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || 'https://jianzhuanquan.vercel.app');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, Pragma');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.status(204).end();
+});
 
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
@@ -25,7 +56,7 @@ app.get('/health', (req, res) => {
         status: 'OK',
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'production',
-        message: 'Express server working on Vercel'
+        message: 'Express server working on Vercel with CORS fixed'
     });
 });
 
