@@ -12,8 +12,19 @@ const PORT = process.env.PORT || 3000;
 
 // Vercel环境下的路径配置
 const uploadDir = process.env.UPLOAD_PATH || '/tmp/uploads';
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
+try {
+    if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    console.log('上传目录已准备:', uploadDir);
+} catch (error) {
+    console.error('创建上传目录失败:', error);
+    // 在Vercel环境下，如果无法创建目录，使用临时目录
+    const tempDir = '/tmp';
+    if (!fs.existsSync(tempDir)) {
+        fs.mkdirSync(tempDir, { recursive: true });
+    }
+    console.log('使用临时目录:', tempDir);
 }
 
 // 中间件配置
@@ -89,10 +100,17 @@ app.get('/api/status', (req, res) => {
 // 错误处理中间件
 app.use((error, req, res, next) => {
     console.error('服务器错误:', error);
+    console.error('错误堆栈:', error.stack);
+    
     res.status(500).json({
         success: false,
         message: '服务器内部错误',
-        error: process.env.NODE_ENV === 'development' ? error.message : '请联系管理员'
+        error: process.env.NODE_ENV === 'development' ? error.message : '请联系管理员',
+        details: {
+            errorType: error.constructor.name,
+            errorCode: error.code || 'UNKNOWN_ERROR',
+            timestamp: new Date().toISOString()
+        }
     });
 });
 
