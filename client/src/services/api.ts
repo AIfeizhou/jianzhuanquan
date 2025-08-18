@@ -9,7 +9,7 @@ import {
 // 创建axios实例
 const api = axios.create({
   baseURL: process.env.NODE_ENV === 'production' 
-    ? 'https://jianzhuanquan-api.vercel.app/api' 
+    ? '/api' 
     : 'http://localhost:3000',
   timeout: 30000,
   headers: {

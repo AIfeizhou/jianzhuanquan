@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/api/:match*", "destination": "https://jianzhuanquan-api.vercel.app/api/:match*" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
