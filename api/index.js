@@ -15,15 +15,46 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-app.use(helmet({
-  crossOriginEmbedderPolicy: false,
-}));
+app.use(helmet({ crossOriginEmbedderPolicy: false }));
 app.use(compression());
 app.use(morgan('combined'));
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'https://jianzhuanquan.vercel.app',
+
+// 动态CORS白名单：允许前端正式域和本项目在 vercel.app 下的预览域
+const corsOptions = {
+  origin(origin, callback) {
+    const allowed = [
+      'https://jianzhuanquan.vercel.app',
+    ];
+    const isVercelPreview = typeof origin === 'string' && /\.vercel\.app$/.test(origin);
+    if (!origin || allowed.includes(origin) || isVercelPreview) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Not allowed by CORS: ${origin}`));
+    }
+  },
   credentials: true,
-}));
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+// 兜底CORS（防止某些路径/中间件未命中时丢失CORS头）
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && (/\.vercel\.app$/.test(origin) || origin === 'https://jianzhuanquan.vercel.app')) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  next();
+});
 
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));

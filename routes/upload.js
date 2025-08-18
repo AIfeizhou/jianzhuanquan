@@ -7,11 +7,29 @@ const crypto = require('crypto');
 
 const router = express.Router();
 
+// 确保目录存在
+function ensureDirectoryExists(dirPath) {
+    try {
+        if (!fs.existsSync(dirPath)) {
+            fs.mkdirSync(dirPath, { recursive: true });
+        }
+    } catch (err) {
+        // 目录创建失败时抛出明确错误
+        throw new Error(`无法创建上传目录: ${dirPath}, ${err.message}`);
+    }
+}
+
 // 配置文件存储
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const uploadPath = process.env.UPLOAD_PATH || './uploads';
-        cb(null, uploadPath);
+        // 确保目录存在（Vercel需写入/tmp）
+        try {
+            ensureDirectoryExists(uploadPath);
+            cb(null, uploadPath);
+        } catch (err) {
+            cb(err);
+        }
     },
     filename: (req, file, cb) => {
         // 生成唯一文件名
@@ -180,6 +198,8 @@ router.post('/base64', async (req, res) => {
             `construction_${Date.now()}_${uniqueSuffix}.${fileExtension}`;
         
         const uploadPath = process.env.UPLOAD_PATH || './uploads';
+        // 确保上传目录存在
+        ensureDirectoryExists(uploadPath);
         const filePath = path.join(uploadPath, fileName);
         
         // 保存文件

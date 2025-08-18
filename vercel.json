@@ -10,13 +10,7 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "https://jianzhuanquan-api.vercel.app/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "https://jianzhuanquan-api.vercel.app/api/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
