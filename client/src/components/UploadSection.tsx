@@ -240,6 +240,11 @@ const UploadSection: React.FC<UploadSectionProps> = ({
                   src={uploadedFile?.url || ''} 
                   alt={uploadedFile?.originalName || '上传的图片'}
                   className="uploaded-image"
+                  onError={(e) => {
+                    // 图片加载失败时的处理
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
                 />
                 <div className="preview-overlay">
                   <Button 
