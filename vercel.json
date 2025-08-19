@@ -1,15 +1,25 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "vercel-native.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/health.js": {
+      "maxDuration": 10
+    },
+    "api/upload.js": {
+      "maxDuration": 10
     }
-  ],
+  },
   "routes": [
     {
+      "src": "/health",
+      "dest": "/api/health.js"
+    },
+    {
+      "src": "/api/upload/single",
+      "dest": "/api/upload.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/vercel-native.js"
+      "dest": "/api/health.js"
     }
   ]
 }
